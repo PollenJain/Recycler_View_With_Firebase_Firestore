@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "462090698672",
+    "firebase_url": "https://recyclerviewfirestore.firebaseio.com",
+    "project_id": "recyclerviewfirestore",
+    "storage_bucket": "recyclerviewfirestore.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462090698672:android:d20bcf4862af4995",
+        "android_client_info": {
+          "package_name": "com.example.paragjai.recycler_view_firestore_youtube"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462090698672-rrrupi9b21p4kc7e33sajo8jscs5hkr7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.paragjai.recycler_view_firestore_youtube",
+            "certificate_hash": "c5969a3bfaf305247950e80afa7eddcae267e9e2"
+          }
+        },
+        {
+          "client_id": "462090698672-8sm6dih09f8r9p0ukitlj1a0kr6rlr1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj_68Q71eXAn5XkxGWRnBpI-reaCB28lA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "462090698672-8sm6dih09f8r9p0ukitlj1a0kr6rlr1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

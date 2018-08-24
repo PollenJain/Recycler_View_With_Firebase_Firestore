@@ -24,13 +24,15 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewHo
     @Override
     public MyRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
     {
-        LayoutInflater layoutInflater = LayoutInflater.from(mainActivity_.getBaseContext());
+       // LayoutInflater layoutInflater = LayoutInflater.from(mainActivity_.getBaseContext());
+        LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         View view = layoutInflater.inflate(R.layout.single_row, viewGroup, false);
         return new MyRecyclerViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyRecyclerViewHolder myRecyclerViewHolder, int i) {
+
             myRecyclerViewHolder.mUserName.setText(userArrayList_.get(i).getUserName());
             myRecyclerViewHolder.mUserStatus.setText(userArrayList_.get(i).getUserStatus());
 

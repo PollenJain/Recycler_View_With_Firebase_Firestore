@@ -1,5 +1,7 @@
 package com.example.paragjai.recycler_view_firestore_youtube;
 
+import android.util.Log;
+
 public class User {
 
     String userName_;
@@ -11,6 +13,7 @@ public class User {
     }
 
     public String getUserName() {
+        Log.d("User class: ", "getUserName Called: " + userName_);
         return userName_;
     }
 
@@ -19,6 +22,7 @@ public class User {
     }
 
     public String getUserStatus() {
+        Log.d("User class: ", "getUserStatus Called: " + userStatus_);
         return userStatus_;
     }
 

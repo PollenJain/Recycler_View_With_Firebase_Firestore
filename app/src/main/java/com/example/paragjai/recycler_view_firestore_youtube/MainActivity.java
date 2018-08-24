@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -47,8 +48,8 @@ public class MainActivity extends Activity {
         Random random = new Random();
         final Integer for_name = random.nextInt(50);
         final Integer for_status = random.nextInt(50);
-        dataMap.put("name", "try name : " + for_name);
         dataMap.put("status", "try status : " + for_status);
+        dataMap.put("name", "try name : " + for_name);
 
         db.collection("users")
                 .add(dataMap)
@@ -65,27 +66,56 @@ public class MainActivity extends Activity {
 
     private void loadDataFromFirebase()
     {
-
-
         if(userArrayList.size()>0)
             userArrayList.clear();
 
+        /*get ALL documents in the "users" collection*/
         db.collection("users")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        Integer i = 0;
-                        for(DocumentSnapshot querySnapshot: task.getResult())
+                    public void onComplete(@NonNull Task<QuerySnapshot> task)
+                    {
+
+                        if(task.isSuccessful())
                         {
-                            i = i + 1;
-                            Log.w("onComplete : " + i, "");
-                            User user = new User(querySnapshot.getString("name"),
-                                    querySnapshot.getString("status"));
-                            userArrayList.add(user);
+                            Log.d("onComplete called", "task is successful: " );
+                            Integer i = 0;
+                            QuerySnapshot querySnapshot = task.getResult();
+
+                            if(querySnapshot.isEmpty())
+                            {
+                                Log.d("onComplete called", "no documents in collection");
+                            }
+                            else {
+                                String nameFromDoc;
+                                String statusFromDoc;
+                                Log.d("onComplete called", querySnapshot.size() + " documents present in collection");
+                                for (DocumentSnapshot documentSnapshot : querySnapshot)
+                                {
+                                    i = i + 1;
+                                    Log.d("onComplete : " + i, "i :" + i);
+                                    Log.d("doc id: " + documentSnapshot.getId(), documentSnapshot.getData().toString()  );
+                                    statusFromDoc = documentSnapshot.getString("status");
+                                    nameFromDoc = documentSnapshot.getString("name");
+                                    Log.d("status from doc: ", statusFromDoc);
+                                    Log.d("name from doc: ", nameFromDoc);
+                                    /*User ctor takes name first and then status*/
+                                    User user = new User(nameFromDoc, statusFromDoc);
+                                    userArrayList.add(user);
+                                }
+
+                                Log.d("size of userArrayList: ", "is: " + userArrayList.size());
+                                myRecyclerViewAdapter = new MyRecyclerViewAdapter(MainActivity.this, userArrayList);
+                                mRecyclerView.setAdapter(myRecyclerViewAdapter);
+                            }
                         }
-                        myRecyclerViewAdapter = new MyRecyclerViewAdapter(MainActivity.this, userArrayList);
-                        mRecyclerView.setAdapter(myRecyclerViewAdapter);
+                        else
+                        {
+                            Exception exception = task.getException();
+                            Log.d("loadDataFromFirebase: ", "exception occured: " + exception);
+                        }
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
